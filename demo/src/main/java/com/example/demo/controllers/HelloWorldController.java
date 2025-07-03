@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
-import com.example.demo.models.Student;
+import com.example.demo.models.Employee;
+import com.example.demo.models.Employee;
 import com.example.demo.services.HelloWorldService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +12,7 @@ public class HelloWorldController {
     @Autowired
     HelloWorldService hws;
     @GetMapping("/")
-    public List<Student> getMethod(){
+    public List<Employee> getMethod(){
       return hws.getMethod();
     }
     @PostMapping("/")

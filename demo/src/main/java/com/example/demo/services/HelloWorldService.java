@@ -1,6 +1,6 @@
 package com.example.demo.services;
 
-import com.example.demo.models.Student;
+import com.example.demo.models.Employee;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,12 +9,12 @@ import java.util.List;
 
 @Service
 public class HelloWorldService {
-    List<Student> std=new ArrayList<>(
-            Arrays.asList(new Student(1,"sri","23ec159"),
-                    new Student(2,"nitha","23ec111"))
+    List<Employee> std=new ArrayList<>(
+            Arrays.asList(new Employee(1,"sri","23ec159"),
+                    new Employee(2,"nitha","23ec111"))
     );
 
-    public List<Student> getMethod(){
+    public List<Employee> getMethod(){
         return std;
     }
 
