@@ -9,25 +9,62 @@ import java.util.List;
 
 @Service
 public class HelloWorldService {
-    List<Employee> std=new ArrayList<>(
-            Arrays.asList(new Employee(1,"sri","23ec159"),
-                    new Employee(2,"nitha","23ec111"))
-    );
+    List<Employee> employees = new ArrayList<>(
+            Arrays.asList(new Employee(1, "sri", "23ec151"),
+                    new Employee(2, "nitha", "23ec159")
+            ));
 
-    public List<Employee> getMethod(){
-        return std;
+    public List<Employee> getMethod() {
+        return employees;
     }
 
-    public String postMethod(){
-        return"post method";
+    public String postMethod(Employee emp) {
+        employees.add(emp);
+        return "employee added successfully";
     }
 
-    public String putMethod(){
-        return"put method";
+    public String putMethod() {
+        return "put method";
     }
 
-    public String deleteMethod(){
-        return"delete method";
+    public String deleteMethod() {
+        return "delete method";
+    }
+
+    public Employee getEmployeeById(int empID) {
+        int ind = 0;
+        boolean flag = false;
+        for (int i = 0; i < employees.size(); i++) {
+            if (empID == employees.get(i).getEmpID()) {
+                System.out.println("Emp_ID: " + employees.get(i).getEmpID() + employees.get(i));
+                ind = i;
+                flag = true;
+                break;
+            }
+        }
+        if (flag) {
+            return employees.get(ind);
+        } else {
+            return new Employee();
+        }
+    }
+
+    public String deleteEmployeeById(int empID) {
+        int ind = 0;
+        boolean flag = false;
+        for (int i = 0; i < employees.size(); i++) {
+            if (empID == employees.get(i).getEmpID()) {
+                System.out.println("Emp_ID: " + employees.get(i).getEmpID() + employees.get(i));
+                ind = i;
+                flag = true;
+                break;
+            }
+        }
+        if (flag) {
+            employees.remove(ind);
+            return"employee removed";
+        } else {
+            return "deleted employee";
+        }
     }
 }
-
