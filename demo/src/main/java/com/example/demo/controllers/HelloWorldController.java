@@ -21,8 +21,8 @@ public class HelloWorldController {
         return hws.postMethod(emp);
     }
     @PutMapping
-    public String putMethod(){
-        return hws.putMethod();
+    public String putMethod(@RequestBody Employee emp){
+        return hws.updateRecord(emp);
     }
     @DeleteMapping("/{empID}")
     public String DeleteMethod(@PathVariable int empID){

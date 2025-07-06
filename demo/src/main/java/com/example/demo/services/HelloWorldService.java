@@ -23,13 +23,7 @@ public class HelloWorldService {
         return "employee added successfully";
     }
 
-    public String putMethod() {
-        return "put method";
-    }
 
-    public String deleteMethod() {
-        return "delete method";
-    }
 
     public Employee getEmployeeById(int empID) {
         int ind = 0;
@@ -65,6 +59,25 @@ public class HelloWorldService {
             return"employee removed";
         } else {
             return "deleted employee";
+        }
+    }
+
+    public String updateRecord(Employee employee) {
+        int ind = 0;
+        boolean flag = false;
+        for (int i = 0; i < employees.size(); i++) {
+            if (employee.getEmpID() == employees.get(i).getEmpID()) {
+                System.out.println("Emp_ID: " + employees.get(i).getEmpID() + employees.get(i));
+                ind = i;
+                flag = true;
+                break;
+            }
+        }
+        if (flag) {
+            employees.set(ind,employee);
+            return"employee UPDATED";
+        } else {
+            return "NO SUCH employee PRESENT";
         }
     }
 }
