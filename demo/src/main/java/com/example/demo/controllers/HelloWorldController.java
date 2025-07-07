@@ -11,22 +11,30 @@ import java.util.List;
 public class HelloWorldController {
     @Autowired
     private HelloWorldService hws;
+
+    @GetMapping("/")
+    public List<Employee> getMethod() {
+        return hws.getMethod();
+    }
+
     @GetMapping("/{empID}")
-    public Employee getMethod(@PathVariable int empID){
-      return hws.getEmployeeById(empID);
+    public Employee getMethod(@PathVariable int empID) {
+        return hws.getEmployeeById(empID);
     }
-    @PostMapping
-    public String postMethod(@RequestBody Employee emp){
-      //  Employee emp=new Employee(5,"sivagami","23ec130");
-        return hws.postMethod(emp);
+
+    @PostMapping("/")
+    public String postMethod(@RequestBody Employee emp) {
+
+        hws.addEmployee(emp);
+        return "added employee succesfully";
     }
+
     @PutMapping
     public String putMethod(@RequestBody Employee emp){
-        return hws.updateRecord(emp);
+        return hws.updateEmployee(emp);
     }
     @DeleteMapping("/{empID}")
     public String DeleteMethod(@PathVariable int empID){
         return hws.deleteEmployeeById(empID);
     }
-
 }
