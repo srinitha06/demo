@@ -17,6 +17,7 @@ public class HelloWorldService {
     }
 
     public Employee getEmployeeById(int empID) {
+
         return  empRepo.findById(empID).orElse(new Employee());
     }
     public String addEmployee(Employee employee){
@@ -32,5 +33,9 @@ public class HelloWorldService {
     public String deleteEmployeeById(int empID) {
         empRepo.deleteById(empID);
         return"deleted employee successfully";
+    }
+
+    public List<Employee >getEmployeeByJob(String job) {
+        return empRepo.findByJob(job);
     }
 }

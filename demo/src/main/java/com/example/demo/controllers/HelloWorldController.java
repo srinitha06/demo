@@ -17,10 +17,16 @@ public class HelloWorldController {
         return hws.getMethod();
     }
 
-    @GetMapping("/{empID}")
+   @GetMapping("/{empID}")
     public Employee getMethod(@PathVariable int empID) {
         return hws.getEmployeeById(empID);
     }
+
+    @GetMapping("/job/{job}")
+    public List<Employee> getEmployeeByJob(@PathVariable String job) {
+        return hws.getEmployeeByJob(job);
+    }
+
 
     @PostMapping("/")
     public String postMethod(@RequestBody Employee emp) {
