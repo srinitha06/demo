@@ -7,39 +7,39 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @RestController
-@RequestMapping("/emp")
+
 public class HelloWorldController {
     @Autowired
     private HelloWorldService hws;
 
     @GetMapping("/")
-    public List<Employee> getMethod() {
-        return hws.getMethod();
+    public String route() {
+        return "welcome to springboot";
     }
 
-   @GetMapping("/{empID}")
+   @GetMapping("/employee/{empID}")
     public Employee getMethod(@PathVariable int empID) {
         return hws.getEmployeeById(empID);
     }
 
-    @GetMapping("/job/{job}")
+    @GetMapping("/employee")
     public List<Employee> getEmployeeByJob(@PathVariable String job) {
         return hws.getEmployeeByJob(job);
     }
 
 
-    @PostMapping("/")
+    @PostMapping("/employee")
     public String postMethod(@RequestBody Employee emp) {
 
         hws.addEmployee(emp);
         return "added employee succesfully";
     }
 
-    @PutMapping
+    @PutMapping("/employee")
     public String putMethod(@RequestBody Employee emp){
         return hws.updateEmployee(emp);
     }
-    @DeleteMapping("/{empID}")
+    @DeleteMapping("/employee/{empID}")
     public String DeleteMethod(@PathVariable int empID){
         return hws.deleteEmployeeById(empID);
     }
