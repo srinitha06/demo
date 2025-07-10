@@ -19,23 +19,27 @@ public class EmployeeController {
         return "Welcome to Spring Boot";
     }
 
-    @PreAuthorize("hasRole('USER')")
-    @GetMapping("/employee/id/{empID}")
-    public RegisterDetails getMethod(@PathVariable int empID) {
-        return employeeService.getEmployeeById(empID);
-    }
-
-    @PreAuthorize("hasAnyRole('ADMIN','USER')")
-    @GetMapping("/employee/job/{job}")
-    public List<RegisterDetails> getEmployeeByJob(@PathVariable String job) {
-        return employeeService.getEmployeeByJob(job);
-    }
-
     @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @GetMapping("/employee")
     public List<RegisterDetails> getMethod() {
         return employeeService.getMethod();
     }
+
+
+    @GetMapping("/employee/{empID}")
+    @PreAuthorize("hasRole('ADMIN',USER')")
+    public RegisterDetails getEmployeeById(@PathVariable int empID) {
+        System.out.println();
+        return employeeService.getEmployeeById(empID);
+    }
+
+//    @PreAuthorize("hasAnyRole('ADMIN','USER')")
+//    @GetMapping("/employee/job/{job}")
+//    public List<RegisterDetails> getEmployeeByJob(@PathVariable String job) {
+//        return employeeService.getEmployeeByJob(job);
+//    }
+
+
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/employee")
@@ -43,10 +47,11 @@ public class EmployeeController {
         return employeeService.addEmployee(emp);
     }
 
+
     @PreAuthorize("hasRole('ADMIN')")
-    @PutMapping("/employee")
-    public String putMethod(@RequestBody RegisterDetails emp) {
-        return employeeService.updateEmployee(emp);
+    @PutMapping("/employee/{empId}")
+    public String putMethod(@PathVariable int empID){
+        return employeeService.updateEmployee(empID);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -54,4 +59,5 @@ public class EmployeeController {
     public String deleteMethod(@PathVariable int empID) {
         return employeeService.deleteEmployeeById(empID);
     }
+
 }

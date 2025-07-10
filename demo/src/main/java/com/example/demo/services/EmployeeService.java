@@ -21,20 +21,20 @@ public class EmployeeService {
         return registerDetailsRepository.findById(empID).orElse(new RegisterDetails());
     }
 
-    public List<RegisterDetails> getEmployeeByJob(String job) {
-        return registerDetailsRepository.findByJob(job);
-    }
+//    public List<RegisterDetails> getEmployeeByJob(String job) {
+//        return registerDetailsRepository.findByJob(job);
+//    }
 
     public String addEmployee(RegisterDetails emp) {
         registerDetailsRepository.save(emp);
         return "Employee added successfully";
     }
 
-    public String updateEmployee(RegisterDetails emp) {
-        RegisterDetails user = registerDetailsRepository.findById(emp.getEmpID())
-                .orElseThrow(() -> new RuntimeException("No user found"));
-        registerDetailsRepository.save(emp);
-        return "Employee updated successfully";
+    public String updateEmployee(int empID) {
+        RegisterDetails user = registerDetailsRepository.findById(empID)
+                .orElseThrow(()->new RuntimeException("No Such User Present"));
+        registerDetailsRepository.save(user);
+        return "Employee Updated Successfully";
     }
 
     public String deleteEmployeeById(int empID) {
