@@ -1,6 +1,9 @@
 package com.example.demo.models;
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -24,6 +27,18 @@ public class RegisterDetails {
     @JoinColumn(name="user_id",referencedColumnName ="empID"),
            inverseJoinColumns = @JoinColumn(name="role_id",referencedColumnName="roleId"))
     private Set<Roles>roles;
+
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+    private List<Todo> todos = new ArrayList<>();
+
+    public List<Todo> getTodos() {
+        return todos;
+    }
+
+    public void setTodos(List<Todo> todos) {
+        this.todos = todos;
+    }
 
     public RegisterDetails() {
     }
@@ -87,6 +102,7 @@ public class RegisterDetails {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
 
 
 

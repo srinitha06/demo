@@ -27,17 +27,16 @@ public class EmployeeController {
 
 
     @GetMapping("/employee/{empID}")
-    @PreAuthorize("hasRole('ADMIN',USER')")
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     public RegisterDetails getEmployeeById(@PathVariable int empID) {
-        System.out.println();
         return employeeService.getEmployeeById(empID);
     }
 
-//    @PreAuthorize("hasAnyRole('ADMIN','USER')")
-//    @GetMapping("/employee/job/{job}")
-//    public List<RegisterDetails> getEmployeeByJob(@PathVariable String job) {
-//        return employeeService.getEmployeeByJob(job);
-//    }
+//   @PreAuthorize("hasAnyRole('ADMIN','USER')")
+//  @GetMapping("/employee/job/{job}")
+//  public List<RegisterDetails> getEmployeeByJob(@PathVariable String job) {
+//    return employeeService.getEmployeeByJob(job);
+//   }
 
 
 
@@ -48,11 +47,18 @@ public class EmployeeController {
     }
 
 
+
     @PreAuthorize("hasRole('ADMIN')")
-    @PutMapping("/employee/{empId}")
-    public String putMethod(@PathVariable int empID){
-        return employeeService.updateEmployee(empID);
+    @PutMapping("/employee/{empID}")
+    public String putMethod(@PathVariable int empID, @RequestBody RegisterDetails updatedEmployee) {
+        return employeeService.updateEmployee(empID, updatedEmployee);
     }
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
+    @GetMapping("/employee/{roleName}")
+    public List<RegisterDetails> getEmployeesByRole(@PathVariable String roleName) {
+        return employeeService.getUsersByRole(roleName);
+    }
+
 
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/employee/{empID}")
