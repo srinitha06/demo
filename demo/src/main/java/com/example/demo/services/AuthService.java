@@ -1,12 +1,17 @@
 package com.example.demo.services;
 
+import com.example.demo.jwt.JwtTokenProvider;
 import com.example.demo.models.RegisterDetails;
 import com.example.demo.models.Roles;
 import com.example.demo.models.UserDetailsDto;
 import com.example.demo.repository.RegisterDetailsRepository;
+import com.example.demo.repository.RegisterRepository;
 import com.example.demo.repository.RolesRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +19,11 @@ import java.util.*;
 
 @Service
 public class AuthService {
+    @Autowired
+    RegisterRepository registerRepository;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     @Autowired
     private RegisterDetailsRepository registerDetailsRepository;
@@ -23,6 +33,9 @@ public class AuthService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    JwtTokenProvider jwtTokenProvider;
+
 
     public String addNewEmployee(UserDetailsDto register) {
         RegisterDetails registerDetails = new RegisterDetails();
@@ -43,15 +56,15 @@ public class AuthService {
         return "Employee added successfully";
     }
 
-    public String authenticate(RegisterDetails login) {
-        RegisterDetails user = registerDetailsRepository.findByEmail(login.getEmail());
-        if (user != null) {
-            if (passwordEncoder.matches(login.getPassword(), user.getPassword())) {
-                return "Login successful";
-            }
-        }
-        return "Login not successful";
-    }
+//    public String authenticate(RegisterDetails login) {
+//        RegisterDetails user = registerDetailsRepository.findByEmail(login.getEmail());
+//        if (user != null) {
+//            if (passwordEncoder.matches(login.getPassword(), user.getPassword())) {
+//                return "Login successful";
+//            }
+//        }
+//        return "Login not successful";
+//    }
 
     public String updateUser(int id, UserDetailsDto register) {
         RegisterDetails user = registerDetailsRepository.findById(id).orElseThrow(() -> new RuntimeException("ID NOT FOUND: " + id));
@@ -85,6 +98,15 @@ public class AuthService {
         return users;
     }
 
+
+    public String authenticate(RegisterDetails login) {
+        Authentication authentication=authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(login.getUserName(),login.getPassword()));
+        return jwtTokenProvider.generateToken(authentication);
+    }
+    public Optional<RegisterDetails>getUserByUsername(String username){
+        return  registerRepository.findByUserName(username);
+    }
 }
 
 
