@@ -18,14 +18,14 @@ public class AuthController {
         return authService.addNewEmployee(register);
 
     }
-    @PutMapping("/update/{id}")
-    public String updateUser(@PathVariable int id, @RequestBody UserDetailsDto register) {
-        return authService.updateUser(id,register);
-    }
-    @GetMapping("/users/{roleName}")
-    public List<RegisterDetails> getUsersByRole(@PathVariable String roleName) {
-        return authService.getUsersByRole(roleName);
-    }
+//    @PutMapping("/update/{id}")
+//    public String updateUser(@PathVariable int id, @RequestBody UserDetailsDto register) {
+//        return authService.updateUser(id,register);
+//    }
+//    @GetMapping("/users/{roleName}")
+//    public List<RegisterDetails> getUsersByRole(@PathVariable String roleName) {
+//        return authService.getUsersByRole(roleName);
+//    }
 
 
     @PostMapping ("/login")
