@@ -34,6 +34,7 @@ public AuthenticationManager authenticationManager(AuthenticationConfiguration c
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf((csrf)->csrf.disable())
+                .cors(Customizer.withDefaults())
 //                .authorizeHttpRequests(auth->
 //                {  auth.requestMatchers(HttpMethod.POST,"/employee").hasRole("ADMIN");
 //                    auth.requestMatchers(HttpMethod.PUT,"/employee").hasRole("ADMIN");
